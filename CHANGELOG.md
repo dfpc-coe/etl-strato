@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.0.1
+
+- :bug: Fix Build error
+
 ### v1.0.0
 
 - :tada: Initial Commit
