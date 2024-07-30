@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.1.0
+
+- :rocket: Make Query Params and Headers Optional
+
 ### v1.0.1
 
 - :bug: Fix Build error

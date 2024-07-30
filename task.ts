@@ -4,14 +4,14 @@ import ETL, { Event, SchemaType, handler as internal, local, env } from '@tak-ps
 
 const Environment = Type.Object({
     URL: Type.String(),
-    QueryParams: Type.Array(Type.Object({
+    QueryParams: Type.Optional(Type.Array(Type.Object({
         key: Type.String(),
         value: Type.String()
-    })),
-    Headers: Type.Array(Type.Object({
+    }))),
+    Headers: Type.Optional(Type.Array(Type.Object({
         key: Type.String(),
         value: Type.String()
-    }))
+    })))
 });
 
 export default class Task extends ETL {
@@ -28,12 +28,12 @@ export default class Task extends ETL {
 
         const url = new URL(env.URL);
 
-        for (const param of env.QueryParams) {
+        for (const param of env.QueryParams || []) {
             url.searchParams.append(param.key, param.value);
         }
 
         const headers: Record<string, string> = {};
-        for (const header of env.Headers) {
+        for (const header of env.Headers || []) {
             headers[header.key] = header.value;
         }
 
