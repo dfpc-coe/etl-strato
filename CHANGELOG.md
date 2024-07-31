@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.2.0
+
+- :rocket: Add Fallback ID
+
 ### v1.1.0
 
 - :rocket: Make Query Params and Headers Optional

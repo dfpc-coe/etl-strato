@@ -1,3 +1,4 @@
+import hash from 'object-hash';
 import { FeatureCollection } from 'geojson';
 import { Type, TSchema } from '@sinclair/typebox';
 import ETL, { Event, SchemaType, handler as internal, local, env } from '@tak-ps/etl';
@@ -56,6 +57,7 @@ export default class Task extends ETL {
 
         for (const feat of body.features) {
             fc.features.push({
+                id: feat.id || hash(feat),
                 type: 'Feature',
                 properties: {
                     metadata: feat.properties
