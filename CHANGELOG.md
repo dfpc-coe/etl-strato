@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.3.0
+
+- :rocket: Add ability to remove ID
+
 ### v1.2.0
 
 - :rocket: Add Fallback ID

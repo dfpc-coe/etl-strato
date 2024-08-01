@@ -12,7 +12,11 @@ const Environment = Type.Object({
     Headers: Type.Optional(Type.Array(Type.Object({
         key: Type.String(),
         value: Type.String()
-    })))
+    }))),
+    RemoveID: Type.Boolean({
+        default: false,
+        description: 'Remove the provided ID falling back to an Object Hash or Style Override'
+    })
 });
 
 export default class Task extends ETL {
@@ -56,6 +60,8 @@ export default class Task extends ETL {
         };
 
         for (const feat of body.features) {
+            if (env.RemoveID) delete feat.id;
+
             fc.features.push({
                 id: feat.id || hash(feat),
                 type: 'Feature',
