@@ -1,4 +1,3 @@
-import hash from 'object-hash';
 import { FeatureCollection } from 'geojson';
 import { Type, TSchema } from '@sinclair/typebox';
 import ETL, { Event, SchemaType, handler as internal, local, env } from '@tak-ps/etl';
