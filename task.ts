@@ -16,6 +16,10 @@ const Environment = Type.Object({
     RemoveID: Type.Boolean({
         default: false,
         description: 'Remove the provided ID falling back to an Object Hash or Style Override'
+    }),
+    ShowTrackHistory: Type.Boolean({
+        default: true,
+        description: 'If true pass through historic track'
     })
 });
 
@@ -59,17 +63,36 @@ export default class Task extends ETL {
             features: []
         };
 
+        if (body.features.length > 2) {
+            throw new Error('API Should only return 2 features');
+        }
+
         for (const feat of body.features) {
             if (env.RemoveID) delete feat.id;
 
-            fc.features.push({
-                id: feat.id || hash(feat),
-                type: 'Feature',
-                properties: {
-                    metadata: feat.properties
-                },
-                geometry: feat.geometry
-            });
+            if (feat.geometry.type === 'Point') {
+                feat.geometry.coordinate.push(feat.properties.altitude);
+
+                fc.features.push({
+                    id: `strato-${feat.properties.name}-current`,
+                    type: 'Feature',
+                    properties: {
+                        course: feat.properties.course,
+                        speed: feat.properties.speed,
+                        metadata: feat.properties
+                    },
+                    geometry: feat.geometry
+                });
+            } else if (env.ShowTrackHistory) {
+                fc.features.push({
+                    id: `strato-${feat.properties.name}-history`,
+                    type: 'Feature',
+                    properties: {
+                        metadata: feat.properties
+                    },
+                    geometry: feat.geometry
+                });
+            }
         }
 
         console.log(`ok - obtained ${fc.features.length} features`);

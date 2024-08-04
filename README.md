@@ -1,6 +1,6 @@
-<h1 align='center'>ETL-GeoJSON</h1>
+<h1 align='center'>ETL-Strato</h1>
 
-<p align='center'>Bring GeoJSON data from an HTTP(s) API</p>
+<p align='center'> [Labs] ETL to bring in balloon tracking from the STRATO project</p>
 
 ## Development
 
