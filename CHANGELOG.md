@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.4.1
+
+- :rocket: Bump build
+
 ### v1.4.0
 
 - :rocket: Split off GeoJSON codebase and make strato specific changes
