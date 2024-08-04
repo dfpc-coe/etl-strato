@@ -70,7 +70,7 @@ export default class Task extends ETL {
             if (env.RemoveID) delete feat.id;
 
             if (feat.geometry.type === 'Point') {
-                feat.geometry.coordinate.push(feat.properties.altitude);
+                feat.geometry.coordinates.push(feat.properties.altitude);
 
                 fc.features.push({
                     id: `strato-${feat.properties.name}-current`,

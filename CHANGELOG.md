@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.4.2
+
+- :rocket: Fix Z coordinate
+
 ### v1.4.1
 
 - :rocket: Bump build
