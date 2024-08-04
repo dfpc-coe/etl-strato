@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.4.0
+
+- :rocket: Split off GeoJSON codebase and make strato specific changes
+
 ### v1.3.0
 
 - :rocket: Add ability to remove ID
