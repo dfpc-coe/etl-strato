@@ -1,3 +1,4 @@
+import Simplify from '@turf/simplify';
 import { FeatureCollection, Feature } from 'geojson';
 import { Type, TSchema } from '@sinclair/typebox';
 import ETL, { Event, SchemaType, handler as internal, local, env } from '@tak-ps/etl';
@@ -19,6 +20,14 @@ const Environment = Type.Object({
     ShowTrackHistory: Type.Boolean({
         default: true,
         description: 'If true pass through historic track'
+    }),
+    SimplifyTrackHistory: Type.Boolean({
+        default: false,
+        description: 'Apply a simplification algo to the track history'
+    }),
+    SimplifyTrackHistoryTolerance: Type.Number({
+        default: 1,
+        description: 'Simplification tolerance for Ramer-Douglas-Peucker algorithm'
     })
 });
 
@@ -51,7 +60,7 @@ export default class Task extends ETL {
         });
 
         // TODO: Type the response
-        let body: any = await res.json();
+        const body: any = await res.json();
 
         // This should be done by the API but it doesn't seem consistent
         if (url.searchParams.get('satellite')) {
@@ -91,6 +100,13 @@ export default class Task extends ETL {
                     geometry: feat.geometry
                 });
             } else if (env.ShowTrackHistory) {
+                if (env.SimplifyTrackHistory) {
+                    Simplify(feat, {
+                        tolerance: env.SimplifyTrackHistoryTolerance || 1,
+                        mutate: true
+                    })
+                }
+
                 fc.features.push({
                     id: `strato-${feat.properties.name}-history`,
                     type: 'Feature',

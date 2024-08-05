@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.5.0
+
+- :tada: Add optional track simplification
+
 ### v1.4.3
 
 - :bug: API is returnning incorrect features - filter clientside
