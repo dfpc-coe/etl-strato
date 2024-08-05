@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.5.1
+
+- :bug: Tolerance update
+
 ### v1.5.0
 
 - :tada: Add optional track simplification

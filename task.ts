@@ -25,8 +25,8 @@ const Environment = Type.Object({
         default: false,
         description: 'Apply a simplification algo to the track history'
     }),
-    SimplifyTrackHistoryTolerance: Type.Number({
-        default: 1,
+    SimplifyTrackHistoryTolerance: Type.String({
+        default: '1',
         description: 'Simplification tolerance for Ramer-Douglas-Peucker algorithm'
     })
 });
@@ -102,7 +102,7 @@ export default class Task extends ETL {
             } else if (env.ShowTrackHistory) {
                 if (env.SimplifyTrackHistory) {
                     Simplify(feat, {
-                        tolerance: env.SimplifyTrackHistoryTolerance || 1,
+                        tolerance: Number(env.SimplifyTrackHistoryTolerance) || 1,
                         mutate: true
                     })
                 }
