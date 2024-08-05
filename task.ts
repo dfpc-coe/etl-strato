@@ -1,4 +1,4 @@
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection, Feature } from 'geojson';
 import { Type, TSchema } from '@sinclair/typebox';
 import ETL, { Event, SchemaType, handler as internal, local, env } from '@tak-ps/etl';
 
@@ -51,7 +51,15 @@ export default class Task extends ETL {
         });
 
         // TODO: Type the response
-        const body: any = await res.json();
+        let body: any = await res.json();
+
+        // This should be done by the API but it doesn't seem consistent
+        if (url.searchParams.get('satellite')) {
+            const satellite = url.searchParams.get('satellite');
+            body.features = body.features.filter((f: Feature) => {
+                return f.properties.name.toLowerCase() === satellite.toLowerCase();
+            });
+        }
 
         if (body.type !== 'FeatureCollection') {
             throw new Error('Only FeatureCollection is supported');

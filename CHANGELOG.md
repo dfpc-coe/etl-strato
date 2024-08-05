@@ -10,6 +10,10 @@
 
 ## Version History
 
+### v1.4.3
+
+- :bug: API is returnning incorrect features - filter clientside
+
 ### v1.4.2
 
 - :rocket: Fix Z coordinate
