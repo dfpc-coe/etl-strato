@@ -1,7 +1,8 @@
 import Simplify from '@turf/simplify';
-import { Feature } from 'geojson';
+import { Feature } from '@tak-ps/node-cot';
+import { Feature as GeoJSONFeature } from 'geojson';
 import { Static, Type, TSchema } from '@sinclair/typebox';
-import ETL, { Event, SchemaType, handler as internal, local, DataFlowType, InvocationType, InputFeatureCollection } from '@tak-ps/etl';
+import ETL, { Event, SchemaType, handler as internal, local, DataFlowType, InvocationType } from '@tak-ps/etl';
 
 const Environment = Type.Object({
     URL: Type.String(),
@@ -76,7 +77,7 @@ export default class Task extends ETL {
         // This should be done by the API but it doesn't seem consistent
         if (url.searchParams.get('satellite')) {
             const satellite = url.searchParams.get('satellite');
-            body.features = body.features.filter((f: Feature) => {
+            body.features = body.features.filter((f: GeoJSONFeature) => {
                 return f.properties.name.toLowerCase() === satellite.toLowerCase();
             });
         }
@@ -85,7 +86,7 @@ export default class Task extends ETL {
             throw new Error('Only FeatureCollection is supported');
         }
 
-        const fc: Static<typeof InputFeatureCollection> = {
+        const fc: Static<typeof Feature.InputFeatureCollection> = {
             type: 'FeatureCollection',
             features: []
         };
